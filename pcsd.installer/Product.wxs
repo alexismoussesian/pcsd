@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <?include Settings.wxi ?>
+
+  <Product Id="$(var.ProductCode)" Name="$(var.ProductName) $(var.ProductVersion)"
+           Language="1033" Version="$(var.ProductVersion)" Manufacturer="$(var.Manufacturer)"
+    UpgradeCode="$(var.UpgradeCode)">
+    <Package Id="*" InstallerVersion="301" Compressed="yes" InstallScope="perMachine" Comments="$(var.Comments)"
+             Description="$(var.ProductName) $(var.ProductVersion)" />
+
+    <?include Conditions.wxi ?>
+
+    <!--Add or Remove Programs Control Panel Comments-->
+    <Property Id="ARPCOMMENTS" Value="$(var.Comments)" />
+
+    <UI>
+      <UIRef Id="WixUI_Mondo" />
+      <UIRef Id="WixUI_ErrorProgressText" />
+    </UI>
+    <WixVariable Id="WixUIBannerBmp" Value="banner.png" />
+    <WixVariable Id="WixUIDialogBmp" Value="dialog.png" />
+    <WixVariable Id="WixUILicenseRtf" Value="license.rtf" />
+    <!--Add/Remove Programs Icon Image-->
+    <Icon Id="glogo.ico" SourceFile="glogo.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="glogo.ico" />
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+
+    <Property Id="WIX_IS_NETFRAMEWORK_461_OR_LATER_INSTALLED" Value="{4AF36591-FE27-44AF-95F9-C9B877DD6230}" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" CompressionLevel="high" />
+
+    <Feature Id="ProductFeature" Level="1" Title="$(var.ProductName)">
+      <ComponentGroupRef Id="ProductComponents" />
+      <ComponentGroupRef Id="PluginsComponents" />
+      <ComponentRef Id="PluginsFolderComponent"/>
+    </Feature>
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="COMPANYFOLDER" Name="$(var.Manufacturer)">
+          <Directory Id="INSTALLFOLDER" Name="$(var.ProductName)">
+            <Directory Id="PLUGINSFOLDER" Name="Plugins">
+              <Component Id="PluginsFolderComponent" Guid="{C259EF5D-8823-42F1-A785-168EB9C05FFD}">
+                <CreateFolder>
+                  <Permission User="Everyone" GenericAll="yes" ChangePermission="yes" />
+                </CreateFolder>
+              </Component>
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <!-- MAIN FOLDER -->
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      
+      <Component Id="pcstat_exe" Guid="{28FFCDD1-96D9-4E67-9D3C-160A27AA3714}">
+        <File Source="$(var.pcsd.TargetDir)pcstat.exe" KeyPath="yes" Checksum="yes" />
+      </Component>
+
+      <Component Id="pcstat_pdb" Guid="{CF7733CE-B65E-4086-916F-F75921E46308}">
+        <File Source="$(var.pcsd.TargetDir)pcstat.pdb"  KeyPath="yes" Checksum="yes" />
+      </Component>
+      
+      <Component Id="pcstat_exe_config" Guid="{F51C9CBC-6C1A-488E-AF3C-49A01E074022}">
+        <File Source="$(var.pcsd.TargetDir)pcstat.exe.config"  KeyPath="yes" Checksum="yes" />
+      </Component>
+
+      <Component Id="pcsd_plugins_dll" Guid="{CFAB48ED-1FCA-4DCE-B63E-DFCA74EC1E88}">
+        <File Source="$(var.pcsd.TargetDir)pcsd.plugins.dll"  KeyPath="yes" Checksum="yes" />
+      </Component>
+
+      <Component Id="pcsd_plugins_pdb" Guid="{57AF2347-4A06-4C30-85E4-0A88CBAE3F96}">
+        <File Source="$(var.pcsd.TargetDir)pcsd.plugins.pdb"  KeyPath="yes" Checksum="yes" />
+      </Component>
+
+      <Component Id="PureCloudPlatform_Client_V2_dll" Guid="{C54593D3-498F-4111-B5DE-6A61438ED87A}">
+        <File Source="$(var.pcsd.TargetDir)PureCloudPlatform.Client.V2.dll"  KeyPath="yes" Checksum="yes" />
+      </Component>
+
+      <Component Id="PureCloudPlatform_Client_V2_xml" Guid="{C62B56DB-4AC7-407F-A150-9F4C36C2A72C}">
+        <File Source="$(var.pcsd.TargetDir)PureCloudPlatform.Client.V2.xml"  KeyPath="yes" Checksum="yes" />
+      </Component>
+
+      <Component Id="log4net_dll" Guid="{066C7AC8-16D5-4BAB-B67B-2E2E5B6CA0F2}">
+        <File Source="$(var.pcsd.TargetDir)log4net.dll"  KeyPath="yes" Checksum="yes" />
+      </Component>
+
+      <Component Id="Newtonsoft_Json_dll" Guid="{6D69BF88-28B5-4CD5-BF04-1D8251EF373F}">
+        <File Source="$(var.pcsd.TargetDir)Newtonsoft.Json.dll"  KeyPath="yes" Checksum="yes" />
+      </Component>
+
+      <Component Id="RestSharp_dll" Guid="{300A476C-43D4-4AA2-A376-52573D370C10}">
+        <File Source="$(var.pcsd.TargetDir)RestSharp.dll"  KeyPath="yes" Checksum="yes" />
+      </Component>
+
+    </ComponentGroup>
+    <!-- MAIN FOLDER -->
+
+    <!-- PLUGINS FOLDER -->
+    <ComponentGroup Id="PluginsComponents" Directory="PLUGINSFOLDER">
+            
+      <Component Id="pcsd_plugin_sql_dll" Guid="{E97A3BE0-E835-40FB-A04A-6A0868AFB721}">
+        <File Source="$(var.pcsd.TargetDir)Plugins\pcsd.plugin.sql.dll"  KeyPath="yes" Checksum="yes" />
+      </Component>
+
+      <Component Id="pcsd_plugin_sql_pdb" Guid="{990F70C1-B5D3-45D0-9075-ED9637C4537F}">
+        <File Source="$(var.pcsd.TargetDir)Plugins\pcsd.plugin.sql.pdb"  KeyPath="yes" Checksum="yes" />
+      </Component>
+
+      <Component Id="pcsd_plugin_csv_dll" Guid="{F2851411-E11F-4B03-94D2-D19DCDA6142A}">
+        <File Source="$(var.pcsd.TargetDir)Plugins\pcsd.plugin.csv.dll"  KeyPath="yes" Checksum="yes" />
+      </Component>
+      
+      <Component Id="pcsd_plugin_csv_dll_confug" Guid="{4E58D4EB-A8EF-431F-8098-2D2A3922E573}">
+        <File Source="$(var.pcsd.TargetDir)Plugins\pcsd.plugin.csv.dll.config"  KeyPath="yes" Checksum="yes" />
+      </Component>
+
+      <Component Id="pcsd_plugin_csv_pdb" Guid="{B099A125-F507-4401-9734-AA81D00D40A0}">
+        <File Source="$(var.pcsd.TargetDir)Plugins\pcsd.plugin.csv.pdb"  KeyPath="yes" Checksum="yes" />
+      </Component>
+
+      <Component Id="pcsd_plugin_csv_mapping_json" Guid="{8CEBFF9F-6AE9-470A-A042-53877C5CE9A9}">
+        <File Source="$(var.pcsd.TargetDir)Plugins\pcsd.plugin.csv.mapping.json"  KeyPath="yes" Checksum="yes" />
+      </Component>
+
+      <Component Id="EntityFramework_dll" Guid="{24082675-36C5-4A96-BE25-7A7181016FD4}">
+        <File Source="$(var.pcsd.TargetDir)Plugins\EntityFramework.dll"  KeyPath="yes" Checksum="yes" />
+      </Component>
+
+      <Component Id="EntityFramework_SqlServer_dll" Guid="{64361E33-3DEF-4B73-A409-8856AEE810C8}">
+        <File Source="$(var.pcsd.TargetDir)Plugins\EntityFramework.SqlServer.dll"  KeyPath="yes" Checksum="yes" />
+      </Component>
+
+      <Component Id="EntityFramework_xml" Guid="{84C28992-EBD4-42C6-AF43-1398A7F2D1F0}">
+        <File Source="$(var.pcsd.TargetDir)Plugins\EntityFramework.xml"  KeyPath="yes" Checksum="yes" />
+      </Component>
+
+      <Component Id="EntityFramework_SqlServer_xml" Guid="{B9115A9A-3358-4F2C-88E6-A44CC6DF73DD}">
+        <File Source="$(var.pcsd.TargetDir)Plugins\EntityFramework.SqlServer.xml"  KeyPath="yes" Checksum="yes" />
+      </Component>
+            
+    </ComponentGroup>
+    <!-- PLUGINS FOLDER -->
+    
+  </Product>
+</Wix>

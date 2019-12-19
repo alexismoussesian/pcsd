@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <?define ProductName="PureCloud Stats" ?>
+  <?define Manufacturer="Genesys" ?>
+  <?define ProductCode="{4AF36591-FE27-44AF-95F9-C9B877DD6230}"?>
+  <?define ProductVersion="!(bind.FileVersion.pcstat.exe)" ?>
+  <?define Comments="The tool for exporting PureCloud data to external targets" ?>
+  <?define UpgradeCode="{FDFA091C-52D4-4442-A474-434A7A84DA4A}"?>
+</Include>

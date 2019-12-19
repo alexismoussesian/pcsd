@@ -1,0 +1,2 @@
+﻿Use a following command in order to generate a migration script from the old database structure to a new model:
+Update-Database -Script -ProjectName pcsd.plugin.sql -ConnectionString "{PUT AN OLD DATABASE CONNECTION STRING HERE}" -ConnectionProviderName "System.Data.SqlClient"

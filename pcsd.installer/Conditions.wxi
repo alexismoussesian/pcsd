@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  
+  <!-- .NET 4.6.1 Version Check                       -->
+  <!-- Needs WiX 3.11 or newer                        -->
+  <!-- http://wixtoolset.org/releases/v3-11-0-1528/   -->
+  
+  <PropertyRef Id="WIX_IS_NETFRAMEWORK_461_OR_LATER_INSTALLED"/>
+
+  <Condition Message="This application requires .NET Framework 4.6.1 or later. Please install the .NET Framework then run this installer again.">
+    <![CDATA[Installed OR WIX_IS_NETFRAMEWORK_461_OR_LATER_INSTALLED]]>
+  </Condition>
+  
+</Include>

@@ -1,0 +1,66 @@
+﻿[
+    {
+        "path": "conversations.conversationId"
+    },
+    {
+        "path": "conversations.participants.participantId"
+    },
+    {
+        "path": "conversations.participants.purpose"
+    },
+    {
+        "path": "conversations.participants.participantName"
+    },
+    {
+        "path": "conversations.participants.sessions.ani"
+    },
+    {
+        "path": "conversations.participants.sessions.mediaType"
+    },
+    {
+        "path": "conversations.participants.sessions.direction"
+    },
+    {
+        "path": "conversations.participants.userId",
+        "dictionary": "users"
+    },
+    {
+        "path": "conversations.participants.sessions.segments.queueId",
+        "dictionary": "queues"
+    },
+    {
+        "path": "conversations.participants.sessions.segments.requestedRoutingSkillIds",
+        "dictionary": "skills",
+        "isArray": true
+    },
+    {
+        "path": "conversations.participants.sessions.segments.requestedLanguageId",
+        "dictionary": "languages"
+    },
+    {
+        "path": "conversations.participants.sessions.segments.segmentType"
+    },
+    {
+        "path": "conversations.participants.sessions.segments.wrapUpCode",
+        "dictionary": "wrapupcodes"
+    },
+    {
+        "path": "conversations.participants.sessions.segments.wrapUpNote",
+        "clean": true,
+        "maxLen": 100        
+    },
+    {
+        "path": "conversations.participants.sessions.segments.segmentStart",
+        "dateTimeMask": "yyyy-MM-dd HH:mm:ss.fff"
+    },
+    {
+        "path": "conversations.participants.sessions.segments.segmentEnd",
+        "dateTimeMask": "yyyy-MM-dd HH:mm:ss.fff"
+    },
+    {
+        "path": "conversations.participants.sessions.segments.disconnectType"
+    },
+    {
+        "path": "conversations.participants.sessions.segments.conference"
+    }
+]
